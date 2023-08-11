@@ -7,7 +7,7 @@
 Just add the following to your build script (build.gradle):
 
 > ### Repositories
-> ```json
+> ```gradle
 > maven {
 >    name = "Modrinth"
 >    url = "https://api.modrinth.com/maven"
@@ -19,12 +19,12 @@ Just add the following to your build script (build.gradle):
 
 
 > ### Forge Dependencies
-> ```json
+> ```gradle
 > implementation fg.deobf("maven.modrinth:EzwvOfTZ:F6MTMI3O")
 > ```
 
 >### Fabric Dependencies
-> ```json
+> ```gradle
 > modImplementation("maven.modrinth:EzwvOfTZ:4HRCbCub")
 > ```
 
