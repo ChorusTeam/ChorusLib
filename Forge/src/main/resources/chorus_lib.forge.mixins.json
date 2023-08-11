@@ -1,0 +1,26 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.yeoxuhang.chorus_lib.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "NyliumBlockAccess",
+    "biome.BiomeSourceMixin",
+    "biome.ChunkNoiseSamplerMixin",
+    "biome.MinecraftServerMixin",
+    "biome.MultiNoiseBiomeSourceMixin",
+    "biome.MultiNoiseUtilMultiNoiseSamplerMixin",
+    "biome.NoiseConfigMixin",
+    "biome.TheEndBiomeSourceMixin",
+    "biome.modification.DynamicRegistryManagerImmutableImplMixin",
+    "biome.modification.MinecraftServerMixin"
+  ],
+  "client": [
+  ],
+  "server": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmap": "chorus_lib.forge.refmap.json"
+}

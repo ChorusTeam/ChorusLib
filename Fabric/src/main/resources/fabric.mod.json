@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "chorus_lib",
+  "version": "${version}",
+  "name": "ChorusLib",
+  "description": "A library mod for Chorus Team",
+  "authors": [
+    "YeoXuHang"
+  ],
+  "contact": {
+    "homepage": "https://github.com/ChorusTeam/ChorusLib",
+    "sources": "https://github.com/ChorusTeam/ChorusLib",
+    "issues": "https://github.com/ChorusTeam/ChorusLib/issues"
+  },
+  "license": "Attribution-NonCommercial-ShareAlike 3.0 Unported",
+  "icon": "icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.yeoxuhang.chorus_lib.ChorusLibFabric"
+    ]
+  },
+  "mixins": [
+    "chorus_lib.mixins.json",
+    "chorus_lib.fabric.mixins.json"
+  ],
+  "accessWidener": "chorus_lib.aw"
+}
+  

@@ -1,0 +1,32 @@
+{
+  "mappings": {
+    "net/yeoxuhang/chorus_lib/mixin/biome/TheEndBiomeSourceMixin": {
+      "getBiome": "Lnet/minecraft/class_2169;method_38109(IIILnet/minecraft/class_6544$class_6552;)Lnet/minecraft/class_6880;"
+    },
+    "net/yeoxuhang/chorus_lib/mixin/biome/MinecraftServerMixin": {
+      "createWorlds": "Lnet/minecraft/server/MinecraftServer;method_3786(Lnet/minecraft/class_3949;)V"
+    },
+    "net/yeoxuhang/chorus_lib/mixin/biome/ChunkNoiseSamplerMixin": {
+      "createMultiNoiseSampler": "Lnet/minecraft/class_6568;method_40531(Lnet/minecraft/class_6953;Ljava/util/List;)Lnet/minecraft/class_6544$class_6552;"
+    },
+    "net/yeoxuhang/chorus_lib/mixin/biome/BiomeSourceMixin": {
+      "getBiomes": "Lnet/minecraft/class_1966;method_28443()Ljava/util/Set;"
+    }
+  },
+  "data": {
+    "named:intermediary": {
+      "net/yeoxuhang/chorus_lib/mixin/biome/TheEndBiomeSourceMixin": {
+        "getBiome": "Lnet/minecraft/class_2169;method_38109(IIILnet/minecraft/class_6544$class_6552;)Lnet/minecraft/class_6880;"
+      },
+      "net/yeoxuhang/chorus_lib/mixin/biome/MinecraftServerMixin": {
+        "createWorlds": "Lnet/minecraft/server/MinecraftServer;method_3786(Lnet/minecraft/class_3949;)V"
+      },
+      "net/yeoxuhang/chorus_lib/mixin/biome/ChunkNoiseSamplerMixin": {
+        "createMultiNoiseSampler": "Lnet/minecraft/class_6568;method_40531(Lnet/minecraft/class_6953;Ljava/util/List;)Lnet/minecraft/class_6544$class_6552;"
+      },
+      "net/yeoxuhang/chorus_lib/mixin/biome/BiomeSourceMixin": {
+        "getBiomes": "Lnet/minecraft/class_1966;method_28443()Ljava/util/Set;"
+      }
+    }
+  }
+}
