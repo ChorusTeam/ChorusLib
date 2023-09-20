@@ -5,14 +5,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.yeoxuhang.chorus_lib.impl.biome.TheEndBiomeData;
 
-/**
- * API that exposes some internals of the minecraft default biome source for The End.
- *
- * <p><b>Experimental feature</b>, may be removed or changed without further notice.
- * Because of the volatility of world generation in Minecraft 1.16, this API is marked experimental
- * since it is likely to change in future Minecraft versions.
- */
-public final class TheEndBiomes {
+public class TheEndBiomes {
     private TheEndBiomes() {
     }
 

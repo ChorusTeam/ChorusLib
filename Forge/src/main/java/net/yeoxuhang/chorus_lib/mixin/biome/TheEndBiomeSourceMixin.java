@@ -1,32 +1,83 @@
 package net.yeoxuhang.chorus_lib.mixin.biome;
 
-import java.util.Set;
-import java.util.function.Supplier;
-
 import com.google.common.base.Suppliers;
-import net.minecraft.world.level.biome.*;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.RegistryOps;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Climate;
+import net.minecraft.world.level.biome.TheEndBiomeSource;
 import net.yeoxuhang.chorus_lib.impl.biome.TheEndBiomeData;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
 
+import java.util.Set;
+import java.util.function.Supplier;
 
 @Mixin(TheEndBiomeSource.class)
 public class TheEndBiomeSourceMixin extends BiomeSourceMixin {
+    @Shadow
+    @Mutable
+    @Final
+    static Codec<TheEndBiomeSource> CODEC;
+
     @Unique
     private Supplier<TheEndBiomeData.Overrides> overrides;
 
     @Unique
     private boolean biomeSetModified = false;
 
+    @Unique
+    private boolean hasCheckedForModifiedSet = false;
+
+    /**
+     * Modifies the codec, so it calls the static factory method that gives us access to the
+     * full biome registry instead of just the pre-defined biomes that vanilla uses.
+     */
+    @Inject(method = "<clinit>", at = @At("TAIL"))
+    private static void modifyCodec(CallbackInfo ci) {
+        CODEC = RecordCodecBuilder.create((instance) -> {
+            return instance.group(RegistryOps.retrieveGetter(Registries.BIOME)).apply(instance, instance.stable(TheEndBiomeSource::create));
+        });
+    }
+
+    /**
+     * Captures the biome registry at the beginning of the static factory method to allow access to it in the
+     * constructor.
+     */
+    @Inject(method = "create", at = @At("HEAD"))
+    private static void rememberLookup(HolderGetter<Biome> biomes, CallbackInfoReturnable<?> ci) {
+        TheEndBiomeData.biomeRegistry.set(biomes);
+    }
+
+    /**
+     * Frees up the captured biome registry.
+     */
+    @Inject(method = "create", at = @At("TAIL"))
+    private static void clearLookup(HolderGetter<Biome> biomes, CallbackInfoReturnable<?> ci) {
+        TheEndBiomeData.biomeRegistry.remove();
+    }
+
+    /**
+     * Uses the captured biome registry to set up the modded end biomes.
+     */
     @Inject(method = "<init>", at = @At("RETURN"))
-    private void init(Registry<Biome> biomeRegistry, CallbackInfo ci) {
-        overrides = Suppliers.memoize(() -> TheEndBiomeData.createOverrides(biomeRegistry));
+    private void init(Holder<Biome> centerBiome, Holder<Biome> highlandsBiome, Holder<Biome> midlandsBiome, Holder<Biome> smallIslandsBiome, Holder<Biome> barrensBiome, CallbackInfo ci) {
+        HolderGetter<Biome> biomes = TheEndBiomeData.biomeRegistry.get();
+
+        if (biomes == null) {
+            throw new IllegalStateException("Biome registry not set by Mixin");
+        }
+
+        overrides = Suppliers.memoize(() -> {
+            return TheEndBiomeData.createOverrides(biomes);
+        });
     }
 
     @Inject(method = "getNoiseBiome", at = @At("RETURN"), cancellable = true)
@@ -35,9 +86,13 @@ public class TheEndBiomeSourceMixin extends BiomeSourceMixin {
     }
 
     @Override
-    public void modifyBiomeSet(Set<Holder<Biome>> biomes) {
-        if (!biomeSetModified) {
-            biomeSetModified = true;
+    protected void modifyBiomeSet(Set<Holder<Biome>> biomes) {
+        if (!hasCheckedForModifiedSet) {
+            hasCheckedForModifiedSet = true;
+            biomeSetModified = !overrides.get().customBiomes.isEmpty();
+        }
+
+        if (biomeSetModified) {
             biomes.addAll(overrides.get().customBiomes);
         }
     }

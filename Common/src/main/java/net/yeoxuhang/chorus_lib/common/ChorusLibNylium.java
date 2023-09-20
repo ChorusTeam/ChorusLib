@@ -5,6 +5,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.NyliumBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -37,9 +38,11 @@ public class ChorusLibNylium extends NyliumBlock {
     }
 
     @Override
-    public boolean isValidBonemealTarget(BlockGetter getter, BlockPos pos, BlockState state, boolean canBonemeal) {
+    public boolean isValidBonemealTarget(LevelReader getter, BlockPos pos, BlockState state, boolean canBonemeal) {
         return this.feature.get() != null;
     }
+
+
 
     @Override
     public void performBonemeal(ServerLevel world, RandomSource rand, BlockPos pos, BlockState state) {

@@ -3,7 +3,10 @@ package net.yeoxuhang.chorus_lib.impl.biome;
 import net.minecraft.world.level.levelgen.synth.ImprovedNoise;
 
 public interface MultiNoiseSamplerHooks {
-    ImprovedNoise getEndBiomesSampler();
+    ImprovedNoise fabric_getEndBiomesSampler();
 
-    void setSeed(long seed);
+    void fabric_setSeed(long seed);
+
+    long fabric_getSeed();
 }
+

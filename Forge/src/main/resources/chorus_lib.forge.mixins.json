@@ -7,13 +7,9 @@
     "NyliumBlockAccess",
     "biome.BiomeSourceMixin",
     "biome.ChunkNoiseSamplerMixin",
-    "biome.MinecraftServerMixin",
-    "biome.MultiNoiseBiomeSourceMixin",
     "biome.MultiNoiseUtilMultiNoiseSamplerMixin",
     "biome.NoiseConfigMixin",
-    "biome.TheEndBiomeSourceMixin",
-    "biome.modification.DynamicRegistryManagerImmutableImplMixin",
-    "biome.modification.MinecraftServerMixin"
+    "biome.TheEndBiomeSourceMixin"
   ],
   "client": [
   ],

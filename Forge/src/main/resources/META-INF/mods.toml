@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[43,)"
+loaderVersion="[46,)"
 license="Attribution-NonCommercial-ShareAlike 3.0 Unported"
 issueTrackerURL="https://github.com/ChorusTeam/ChorusLib/issues"
 [[mods]]
@@ -15,12 +15,12 @@ A library mod for Chorus Team
 [[dependencies.chorus_lib]]
 modId="forge"
 mandatory=true
-versionRange="[43,)"
+versionRange="[46,)"
 ordering="NONE"
 side="BOTH"
 [[dependencies.chorus_lib]]
 modId="minecraft"
 mandatory=true
-versionRange="[1.19.2,)"
+versionRange="[1.20,1.20.2)"
 ordering="NONE"
 side="BOTH"

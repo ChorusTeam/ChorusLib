@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-public final class WeightedPicker<T> {
+public class WeightedPicker<T> {
     private double currentTotal;
     private final List<WeightedEntry<T>> entries;
 

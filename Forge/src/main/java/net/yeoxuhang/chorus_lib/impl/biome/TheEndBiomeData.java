@@ -1,30 +1,23 @@
 package net.yeoxuhang.chorus_lib.impl.biome;
 
-import java.util.HashSet;
-import java.util.IdentityHashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.WeakHashMap;
-import java.util.stream.Collectors;
+import com.google.common.base.Preconditions;
+import it.unimi.dsi.fastutil.Hash;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenCustomHashMap;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.TheEndBiomeSource;
 import net.minecraft.world.level.levelgen.synth.ImprovedNoise;
-import com.google.common.base.Preconditions;
-import it.unimi.dsi.fastutil.Hash;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenCustomHashMap;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
-/**
- * Internal data for modding Vanilla's {@link TheEndBiomeSource}.
- */
-@ApiStatus.Internal
-public final class TheEndBiomeData {
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class TheEndBiomeData {
+    public static final ThreadLocal<HolderGetter<Biome>> biomeRegistry = new ThreadLocal<>();
     public static final Set<ResourceKey<Biome>> ADDED_BIOMES = new HashSet<>();
     private static final Map<ResourceKey<Biome>, WeightedPicker<ResourceKey<Biome>>> END_BIOMES_MAP = new IdentityHashMap<>();
     private static final Map<ResourceKey<Biome>, WeightedPicker<ResourceKey<Biome>>> END_MIDLANDS_MAP = new IdentityHashMap<>();
@@ -71,8 +64,8 @@ public final class TheEndBiomeData {
         ADDED_BIOMES.add(barrens);
     }
 
-    public static Overrides createOverrides(Registry<Biome> biomeRegistry) {
-        return new Overrides(biomeRegistry);
+    public static Overrides createOverrides(HolderGetter<Biome> biomes) {
+        return new Overrides(biomes);
     }
 
     /**
@@ -94,12 +87,12 @@ public final class TheEndBiomeData {
         // cache for our own sampler (used for random biome replacement selection)
         private final Map<Climate.Sampler, ImprovedNoise> samplers = new WeakHashMap<>();
 
-        public Overrides(Registry<Biome> biomeRegistry) {
-            this.customBiomes = ADDED_BIOMES.stream().map(biomeRegistry::getHolderOrThrow).collect(Collectors.toSet());
+        public Overrides(HolderGetter<Biome> biomeRegistry) {
+            this.customBiomes = ADDED_BIOMES.stream().map(biomeRegistry::getOrThrow).collect(Collectors.toSet());
 
-            this.endMidlands = biomeRegistry.getHolderOrThrow(Biomes.END_MIDLANDS);
-            this.endBarrens = biomeRegistry.getHolderOrThrow(Biomes.END_BARRENS);
-            this.endHighlands = biomeRegistry.getHolderOrThrow(Biomes.END_HIGHLANDS);
+            this.endMidlands = biomeRegistry.getOrThrow(Biomes.END_MIDLANDS);
+            this.endBarrens = biomeRegistry.getOrThrow(Biomes.END_BARRENS);
+            this.endHighlands = biomeRegistry.getOrThrow(Biomes.END_HIGHLANDS);
 
             this.endBiomesMap = resolveOverrides(biomeRegistry, END_BIOMES_MAP, Biomes.THE_END);
             this.endMidlandsMap = resolveOverrides(biomeRegistry, END_MIDLANDS_MAP, Biomes.END_MIDLANDS);
@@ -107,7 +100,7 @@ public final class TheEndBiomeData {
         }
 
         // Resolves all RegistryKey instances to RegistryEntries
-        private @Nullable Map<Holder<Biome>, WeightedPicker<Holder<Biome>>> resolveOverrides(Registry<Biome> biomeRegistry, Map<ResourceKey<Biome>, WeightedPicker<ResourceKey<Biome>>> overrides, ResourceKey<Biome> vanillaKey) {
+        private @Nullable Map<Holder<Biome>, WeightedPicker<Holder<Biome>>> resolveOverrides(HolderGetter<Biome> biomeRegistry, Map<ResourceKey<Biome>, WeightedPicker<ResourceKey<Biome>>> overrides, ResourceKey<Biome> vanillaKey) {
             Map<Holder<Biome>, WeightedPicker<Holder<Biome>>> result = new Object2ObjectOpenCustomHashMap<>(overrides.size(), RegistryKeyHashStrategy.INSTANCE);
 
             for (Map.Entry<ResourceKey<Biome>, WeightedPicker<ResourceKey<Biome>>> entry : overrides.entrySet()) {
@@ -115,7 +108,7 @@ public final class TheEndBiomeData {
                 int count = picker.getEntryCount();
                 if (count == 0 || (count == 1 && entry.getKey() == vanillaKey)) continue; // don't use no-op entries, for vanilla key biome check 1 as we have default entry
 
-                result.put(biomeRegistry.getHolderOrThrow(entry.getKey()), picker.map(biomeRegistry::getHolderOrThrow));
+                result.put(biomeRegistry.getOrThrow(entry.getKey()), picker.map(biomeRegistry::getOrThrow));
             }
 
             return result.isEmpty() ? null : result;
@@ -147,7 +140,7 @@ public final class TheEndBiomeData {
 
             // The x and z of the entry are divided by 64 to ensure custom biomes are large enough; going larger than this
             // seems to make custom biomes too hard to find.
-            return picker.pickFromNoise(((MultiNoiseSamplerHooks) (Object) noise).getEndBiomesSampler(), x / 64.0, 0, z / 64.0);
+            return picker.pickFromNoise(((MultiNoiseSamplerHooks) (Object) noise).fabric_getEndBiomesSampler(), x / 64.0, 0, z / 64.0);
         }
     }
 
