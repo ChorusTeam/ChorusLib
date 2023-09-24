@@ -5,7 +5,7 @@ import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SoundType;
 
 public class ChorusLibBlocks {
-    public static class LogBlock extends ChorusLibRotatedPillarBlock {
+    public static class LogBlock extends RotatedPillarBlock {
         public LogBlock(Properties properties) {
             super(properties);
         }
@@ -21,7 +21,7 @@ public class ChorusLibBlocks {
         }
     }
 
-    public static class Wood extends ChorusLibRotatedPillarBlock {
+    public static class Wood extends RotatedPillarBlock {
         public Wood() {
             super(Properties.of(ChorusLibMaterials.WOOD)
                     .sound(SoundType.WOOD)

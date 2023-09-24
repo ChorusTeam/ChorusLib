@@ -9,7 +9,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.NyliumBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.yeoxuhang.chorus_lib.mixin.NyliumBlockAccess;
 
 import java.util.function.Supplier;
 
@@ -26,7 +25,7 @@ public class ChorusLibNylium extends NyliumBlock {
 
     @Override
     public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
-        if (!NyliumBlockAccess.canBeNylium(state, world, pos)) {
+        if (!canBeNylium(state, world, pos)) {
             world.setBlockAndUpdate(pos, this.nyliumBlock.defaultBlockState());
         }
     }

@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class ChorusLibFlowerBlock extends FlowerBlock {
+public class ChorusLibFlowerBlock extends FlowerBlock implements SmallFlower {
     private final TagKey<Block> mayPlaceOn;
 
     public ChorusLibFlowerBlock(Properties properties, TagKey<Block> mayPlaceOn) {
