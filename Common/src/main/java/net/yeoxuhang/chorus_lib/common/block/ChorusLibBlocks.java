@@ -1,4 +1,4 @@
-package net.yeoxuhang.chorus_lib.common;
+package net.yeoxuhang.chorus_lib.common.block;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;

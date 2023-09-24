@@ -58,3 +58,5 @@ mutable	field	net/minecraft/world/level/biome/BiomeGenerationSettings	flowerFeat
 accessible	field	net/minecraft/world/level/biome/BiomeGenerationSettings	featureSet	Ljava/util/function/Supplier;
 mutable	field	net/minecraft/world/level/biome/BiomeGenerationSettings	featureSet	Ljava/util/function/Supplier;
 accessible method net/minecraft/world/level/block/NyliumBlock canBeNylium (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)Z
+accessible method net/minecraft/world/level/levelgen/NoiseGeneratorSettings surfaceRule ()Lnet/minecraft/world/level/levelgen/SurfaceRules$RuleSource;
+accessible field net/minecraft/world/level/levelgen/NoiseBasedChunkGenerator settings Lnet/minecraft/core/Holder;

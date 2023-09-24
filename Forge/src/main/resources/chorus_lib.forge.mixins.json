@@ -9,6 +9,7 @@
     "biome.MultiNoiseUtilMultiNoiseSamplerMixin",
     "biome.NoiseConfigMixin",
     "biome.TheEndBiomeSourceMixin",
+    "access.NoiseGeneratorSettingsAccess"
   ],
   "client": [
   ],

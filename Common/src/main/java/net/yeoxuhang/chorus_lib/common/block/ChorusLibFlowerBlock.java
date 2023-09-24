@@ -1,4 +1,4 @@
-package net.yeoxuhang.chorus_lib.common;
+package net.yeoxuhang.chorus_lib.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.TagKey;
