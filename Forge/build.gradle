@@ -140,6 +140,9 @@ dependencies {
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     library shadow("blue.endless:jankson:${jankson_version}")
     dataImplementation sourceSets.main.output
+    library shadow("com.moandjiezana.toml:toml4j:0.7.2")
+    library shadow("org.yaml:snakeyaml:1.27")
+    library shadow('blue.endless:jankson:1.2.1')
 }
 reg.configureJarTask(shadowJar)
 

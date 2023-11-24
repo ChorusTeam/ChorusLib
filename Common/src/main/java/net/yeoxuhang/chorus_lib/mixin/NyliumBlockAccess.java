@@ -13,7 +13,6 @@ public interface NyliumBlockAccess {
 
     @Invoker("canBeNylium")
     static boolean canBeNylium(BlockState state, LevelReader worldReader, BlockPos pos) {
-
         throw new Error(ChorusLib.MOD_ID +": Mixin didn't apply");
     }
 }

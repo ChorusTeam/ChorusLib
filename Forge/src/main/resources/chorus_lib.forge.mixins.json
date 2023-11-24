@@ -4,12 +4,17 @@
   "package": "net.yeoxuhang.chorus_lib.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "BiomeSourceAccess",
+    "NoiseBasedChunkGeneratorAccess",
+    "NoiseGeneratorSettingsAccess",
     "NyliumBlockAccess",
     "biome.BiomeSourceMixin",
     "biome.ChunkNoiseSamplerMixin",
+    "biome.MinecraftServerMixin",
     "biome.MultiNoiseUtilMultiNoiseSamplerMixin",
     "biome.NoiseConfigMixin",
-    "biome.TheEndBiomeSourceMixin"
+    "biome.TheEndBiomeSourceMixin",
+    "BlockBehaviourMixin"
   ],
   "client": [
   ],

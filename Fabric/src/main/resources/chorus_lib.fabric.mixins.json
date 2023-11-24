@@ -1,9 +1,14 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "",
+  "package": "net.yeoxuhang.chorus_lib.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "BiomeSourceAccess",
+    "NoiseBasedChunkGeneratorAccess",
+    "NoiseGeneratorSettingsAccess",
+    "NyliumBlockAccess",
+    "BlockBehaviourMixin"
   ],
   "client": [
   ],
