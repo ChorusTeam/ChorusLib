@@ -52,19 +52,3 @@ Just add the following to your build script (build.gradle):
 >}
 >```
 
-> **Fabric**
->```java
->public class ExampleFabricMod implements ModInitializer {
->
->    @Override
->    public void onInitialize() {
->        initEndBiomes();
->    }
->
->    public static void initEndBiomes(){
->        TheEndBiomes.addHighlandsBiome(ExampleEndBiomes.EXAMPLE_END_BIOMES, 1);
->    }
->
->}
->```
-
