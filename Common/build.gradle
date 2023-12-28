@@ -35,9 +35,12 @@ sourceSets.main.resources.srcDir 'src/generated/resources'
 dependencies {
     compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
     compileOnly('org.ow2.asm:asm-tree:9.3')
-    compileOnly("com.electronwill.night-config:toml:${nightconfig_version}")
-    compileOnly("blue.endless:jankson:${jankson_version}")
     compileOnly("com.github.glitchfiend:TerraBlender-forge:${terrablender_version}")
+    compileOnly("com.moandjiezana.toml:toml4j:0.7.2")
+    compileOnly('org.yaml:snakeyaml:2.0')
+    compileOnly('blue.endless:jankson:1.2.2')
+    compileOnly("com.electronwill.night-config:toml:${nightconfig_version}")
+    compileOnly("com.electronwill.night-config:core:${nightconfig_version}")
     //compileOnly("maven.modrinth:EzwvOfTZ:DAmncvAy")
 }
 

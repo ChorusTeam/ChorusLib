@@ -23,6 +23,9 @@ public class TheEndBiomeSourceMixin extends BiomeSourceMixin {
 
     @Unique
     private boolean biomeSetModified = false;
+    @Unique
+    private boolean hasCheckedForModifiedSet = false;
+
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void init(Registry<Biome> biomeRegistry, CallbackInfo ci) {
@@ -38,6 +41,12 @@ public class TheEndBiomeSourceMixin extends BiomeSourceMixin {
     public void modifyBiomeSet(Set<Holder<Biome>> biomes) {
         if (!biomeSetModified) {
             biomeSetModified = true;
+            if (!hasCheckedForModifiedSet) {
+                hasCheckedForModifiedSet = true;
+                biomeSetModified = !overrides.get().customBiomes.isEmpty();
+            }
+        }
+        if (biomeSetModified) {
             biomes.addAll(overrides.get().customBiomes);
         }
     }
